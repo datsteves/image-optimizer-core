@@ -1,5 +1,6 @@
 # Image Optimizer Core
 
+
 This Package optimizes your images and adjust the quality automatically.
 So no standard 80% Quality on your JPEG's.
 
