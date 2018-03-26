@@ -6,7 +6,9 @@ So no standard 80% Quality on your JPEG's.
 
 ## Install
 
-```
+please have a look at the instruction of [node-opencv](https://github.com/peterbraden/node-opencv) to install opencv on your machine.
+
+```bash
 $ npm install image-optimizer-core
 ```
 
@@ -56,7 +58,7 @@ Returns `Promise<saved>`
 
 #### output
 
-Type: `String` 
+Type: `String`
 
 #### saved
 
