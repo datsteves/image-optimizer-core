@@ -21,6 +21,9 @@ const optimizer = require('image-optimizer-core')
 // using files
 optimizer('path/to/file.jpg')
     .toFile('output.jpg')
+    .then(saved => {
+        console.log('I saved you', saved * 100, '%')
+    })
 
 // using Buffer
 optimizer(buffer)
@@ -32,8 +35,8 @@ optimizer(buffer)
 //You even get the saved kb back as a percentage
 optimizer('example.jpg')
     .toBuffer()
-    .then(buffer, saved => {
-        console.log(saved) // 0.72345 ... so it saved you 72.345%
+    .then((buffer, saved) => {
+        console.log('saved', saved, '%') // 0.72345 ... so it saved you 72.345%
     })
 
 ```
