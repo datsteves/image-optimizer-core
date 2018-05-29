@@ -10,13 +10,18 @@ please have a look at the instruction of [node-opencv](https://github.com/peterb
 
 ```bash
 $ npm install image-optimizer-core
+# or with yarn
+$ yarn add image-optimizer-core
 ```
 
 ## Usage
 
 ```js
 
-const optimizer = require('image-optimizer-core')
+import optimizer from 'image-optimizer-core'
+// or with the old way
+// const optimizer = require('image-optimizer-core')
+
 
 // using files
 optimizer('path/to/file.jpg')

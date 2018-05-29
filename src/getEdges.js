@@ -1,5 +1,6 @@
-const cv = require('opencv')
-const getPixels = require('get-pixels')
+import cv from 'opencv'
+import getPixels from 'get-pixels'
+
 
 function isBlack(r, g, b, a) {
   if (r <= 30 && g <= 30 && b <= 30 && a === 255) {
@@ -8,7 +9,7 @@ function isBlack(r, g, b, a) {
   return false
 }
 
-module.exports = (buf, type) => new Promise((resolve) => {
+export default (buf, type) => new Promise((resolve) => {
   cv.readImage(buf, (err, mat) => {
     mat.convertGrayscale()
     mat.canny(1, 40)
