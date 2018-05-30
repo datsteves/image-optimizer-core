@@ -1,5 +1,5 @@
-FROM blackgamelp/nodejs-opencv
-RUN apt-get install -y pkg-config
+FROM blackgamelp/nodejs-opencv:latest
+
 WORKDIR /usr/src/testing
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
