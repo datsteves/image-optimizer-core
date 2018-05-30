@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel src --out-dir build --ignore spec.js,test.js",
     "docker:build": "docker build -t datsteves/image-optimizer-core .",
-    "docker:run": "docker run -d datsteves/image-optimizer-core",
+    "docker:run": "docker run --rm datsteves/image-optimizer-core",
     "lint": "eslint --fix src",
     "prepublish": "yarn build",
     "test": "yarn docker:run",

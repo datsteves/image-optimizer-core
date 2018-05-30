@@ -13,4 +13,4 @@ RUN yarn
 
 # Bundle app source
 
-CMD ["yarn", "test"]
+CMD ["yarn", "jest"]
