@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/datsteves/image-optimizer-core.svg?branch=master)](https://travis-ci.com/datsteves/image-optimizer-core)
 # Image Optimizer Core
 
 This Package optimizes your images and adjust the quality automatically.
