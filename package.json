@@ -1,7 +1,7 @@
 {
   "name": "image-optimizer-core",
-  "version": "1.1.1",
-  "description": "",
+  "version": "1.1.2",
+  "description": "This Package optimizes your jpeg by adjusting the quality automatically",
   "main": "build/index.js",
   "scripts": {
     "build": "babel src --out-dir build --ignore spec.js,test.js",
@@ -11,6 +11,9 @@
   },
   "author": "Steffen Meyer @datsteves",
   "license": "MIT",
+  "engines": {
+    "node": ">=0.12"
+  },
   "dependencies": {
     "get-pixels": "^3.3.0",
     "imagemin": "^5.3.1",
@@ -23,5 +26,15 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.12.0",
     "jest": "^23.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/datsteves/image-optimizer-core.git"
+  },
+  "homepage": "https://github.com/datsteves/image-optimizer-core",
+  "keywords": [
+    "image",
+    "optimization",
+    "jpeg"
+  ]
 }
