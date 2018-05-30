@@ -1,4 +1,4 @@
-
+#!/bin/sh
 wget https://github.com/Itseez/opencv/archive/2.4.13.zip
 unzip 2.4.13.zip
 ls
