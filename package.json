@@ -9,8 +9,9 @@
     "docker:run": "docker run -d datsteves/image-optimizer-core",
     "lint": "eslint --fix src",
     "prepublish": "yarn build",
-    "test": "jest",
-    "travis:test": ""
+    "test": "yarn docker:run",
+    "test:dev": "jest --watch",
+    "travis:test": "yarn test"
   },
   "author": "Steffen Meyer @datsteves",
   "license": "MIT",
