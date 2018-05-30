@@ -5,9 +5,12 @@
   "main": "build/index.js",
   "scripts": {
     "build": "babel src --out-dir build --ignore spec.js,test.js",
+    "docker:build": "docker build -t datsteves/image-optimizer-core .",
+    "docker:run": "docker run -d datsteves/image-optimizer-core",
     "lint": "eslint --fix src",
     "prepublish": "yarn build",
-    "test": "jest"
+    "test": "jest",
+    "travis:test": ""
   },
   "author": "Steffen Meyer @datsteves",
   "license": "MIT",
@@ -18,9 +21,10 @@
     "get-pixels": "^3.3.0",
     "imagemin": "^5.3.1",
     "imagemin-mozjpeg": "^7.0.0",
-    "opencv": "^6.0.0"
+    "opencv": "git+https://git@github.com/peterbraden/node-opencv.git"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
