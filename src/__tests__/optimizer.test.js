@@ -9,7 +9,7 @@ describe('main test', () => {
 
     expect(saved).toBeTruthy()
     const fileExists = fs.existsSync(`${__dirname}/test-result-1.jpg`)
-    expect(fileExists).toBe(true)
+    expect(fileExists).toBe(false)
 
     // clean up
     if (fs.existsSync(`${__dirname}/test-result-1.jpg`)) {
