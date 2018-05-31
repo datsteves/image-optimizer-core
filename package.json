@@ -19,9 +19,11 @@
     "node": ">=0.12"
   },
   "dependencies": {
+    "file-type": "^8.0.0",
     "get-pixels": "^3.3.0",
     "imagemin": "^5.3.1",
     "imagemin-mozjpeg": "^7.0.0",
+    "imagemin-webp": "^4.1.0",
     "opencv": "git+https://git@github.com/peterbraden/node-opencv.git"
   },
   "devDependencies": {

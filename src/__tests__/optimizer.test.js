@@ -2,7 +2,7 @@ import fs from 'fs'
 import optimizer from './../'
 import { isBuffer } from './../utiles'
 
-describe('main test', () => {
+describe('CORE: Optimizer', () => {
   it('should optimize jpeg from string and save it to a File (File => File)', async () => {
     const saved = await optimizer(`${__dirname}/test-image.jpg`)
       .toFile(`${__dirname}/test-result-1.jpg`)
@@ -19,8 +19,9 @@ describe('main test', () => {
 
   it('should optimize jpeg from string and save it to Buffer (File => Buffer)', async () => {
     await optimizer(`${__dirname}/test-image.jpg`)
-      .toBuffer((buf, saved) => {
-        expect(isBuffer(buf)).toBe(true)
+      .toBuffer()
+      .then(({ output, saved }) => {
+        expect(isBuffer(output)).toBe(true)
         expect(saved).toBeTruthy()
       })
   })
@@ -43,8 +44,9 @@ describe('main test', () => {
   it('should optimize jpeg from Buffer and save it to Buffer (Buffer => Buffer)', async () => {
     const file = fs.readFileSync(`${__dirname}/test-image.jpg`)
     await optimizer(file)
-      .toBuffer((buf, saved) => {
-        expect(isBuffer(buf)).toBe(true)
+      .toBuffer()
+      .then(({ output, saved }) => {
+        expect(isBuffer(output)).toBe(true)
         expect(saved).toBeTruthy()
       })
   })
@@ -65,5 +67,33 @@ describe('main test', () => {
     expect(() => {
       optimizer(false)
     }).toThrowError('Input is not a valid Object (Buffer or filepath)')
+  })
+
+  it('should make multiple files with given option', async () => {
+    const files = [
+      {
+        path: `${__dirname}/result.jpg`,
+        type: 'image/jpeg',
+      },
+      {
+        path: `${__dirname}/result.webp`,
+        type: 'image/webp',
+      },
+    ]
+    optimizer(`${__dirname}/test-image.jpg`)
+      .toFiles({
+        files,
+      })
+      .then((result) => {
+        expect(result).toHaveLength(files.length)
+        files.forEach((elem) => {
+          const fileExists = fs.existsSync(elem.path)
+          expect(fileExists).toBe(true)
+          // clean up
+          if (fs.existsSync(elem.path)) {
+            fs.unlinkSync(elem.path)
+          }
+        })
+      })
   })
 })
