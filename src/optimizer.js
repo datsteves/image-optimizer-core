@@ -7,12 +7,24 @@ import imageminWebP from 'imagemin-webp'
 import getEdges from './getEdges'
 import { isBuffer } from './utiles'
 
+type BufferObjectType = {
+  output: Buffer,
+  saved: number
+};
+
+type OutputMimeType = 'image/jpeg' | 'image/webp';
+type InputMimeType = 'image/jpeg';
+
 // for now we only support JPEG's
 const validMimes = [
   'image/jpeg',
 ]
 
-function compressToBuffer(file: Buffer, inputMime: string, outputType: string): Promise<Buffer> {
+function compressToBuffer(
+  file: Buffer,
+  inputMime: InputMimeType,
+  outputType: string,
+): Promise<Buffer> {
   return getEdges(file, inputMime)
     .then(async (quality: number): Promise<Buffer> => {
       const plugins = []
@@ -61,13 +73,13 @@ function optimizer(input: string | Buffer): Object {
   }
 
   return {
-    toBuffer: (outputType: string = mime): Promise<Object> =>
+    toBuffer: (outputType: OutputMimeType = mime): Promise<BufferObjectType> =>
       compressToBuffer(file, mime, outputType)
-        .then((output: Buffer): Promise<Object> => new Promise((resolve: Function) => {
+        .then((output: Buffer): Promise<BufferObjectType> => new Promise((resolve: Function) => {
           const saved = 1 - (output.length / file.length)
           resolve({ output, saved })
         })),
-    toFile: (path: string, outputType: string = mime): Promise<number> =>
+    toFile: (path: string, outputType: OutputMimeType = mime): Promise<number> =>
       compressToBuffer(file, mime, outputType)
         .then((output: Buffer): Promise<number> => new Promise((resolve: Function) => {
           const saved = 1 - (output.length / file.length)
