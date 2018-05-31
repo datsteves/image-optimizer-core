@@ -1,3 +1,4 @@
+// @flow
 import fs from 'fs'
 import fileType from 'file-type'
 import imagemin from 'imagemin'
@@ -11,9 +12,9 @@ const validMimes = [
   'image/jpeg',
 ]
 
-function compressToBuffer(file, inputMime, outputType) {
+function compressToBuffer(file: Buffer, inputMime: string, outputType: string): Promise<Buffer> {
   return getEdges(file, inputMime)
-    .then(async (quality) => {
+    .then(async (quality: number): Promise<Buffer> => {
       const plugins = []
 
       if (outputType === 'image/jpeg') {
@@ -39,8 +40,8 @@ function compressToBuffer(file, inputMime, outputType) {
     })
 }
 
-function optimizer(input) {
-  let file = null
+function optimizer(input: string | Buffer): Object {
+  let file
   if (typeof (input) === 'string') {
     if (!fs.existsSync(input)) {
       throw new Error('Input isnt a path/file')
@@ -51,32 +52,38 @@ function optimizer(input) {
   } else {
     throw new Error('Input is not a valid Object (Buffer or filepath)')
   }
+  if (!file) {
+    throw new Error('Some Error happend?')
+  }
   const { mime } = fileType(file)
   if (!validMimes.includes(mime)) {
     throw new Error('Inputpath isnt a JP(E)G')
   }
 
   return {
-    toBuffer: (outputType = mime) => compressToBuffer(file, mime, outputType)
-      .then(output => new Promise((resolve) => {
-        const saved = 1 - (output.length / file.length)
-        resolve({ output, saved })
-      })),
-    toFile: (path, outputType = mime) => compressToBuffer(file, mime, outputType)
-      .then(output => new Promise((resolve) => {
-        const saved = 1 - (output.length / file.length)
-        fs.writeFileSync(path, output)
-        resolve(saved)
-      })),
-    toFiles: (options) => {
+    toBuffer: (outputType: string = mime): Promise<Object> =>
+      compressToBuffer(file, mime, outputType)
+        .then((output: Buffer): Promise<Object> => new Promise((resolve: Function) => {
+          const saved = 1 - (output.length / file.length)
+          resolve({ output, saved })
+        })),
+    toFile: (path: string, outputType: string = mime): Promise<number> =>
+      compressToBuffer(file, mime, outputType)
+        .then((output: Buffer): Promise<number> => new Promise((resolve: Function) => {
+          const saved = 1 - (output.length / file.length)
+          fs.writeFileSync(path, output)
+          resolve(saved)
+        })),
+    toFiles: (options: Object): Promise<Array<number>> => {
       const { files } = options
       let promisses = []
-      promisses = files.map(elem => compressToBuffer(file, mime, elem.type)
-        .then(output => new Promise((resolve) => {
-          const saved = 1 - (output.length / file.length)
-          fs.writeFileSync(elem.path, output)
-          resolve(saved)
-        })))
+      promisses = files.map((elem: Object): Promise<number> =>
+        compressToBuffer(file, mime, elem.type)
+          .then((output: Buffer): Promise<number> => new Promise((resolve: Function) => {
+            const saved = 1 - (output.length / file.length)
+            fs.writeFileSync(elem.path, output)
+            resolve(saved)
+          })))
       return Promise.all(promisses)
     },
   }

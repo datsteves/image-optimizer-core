@@ -1,22 +1,23 @@
+// @flow
 import cv from 'opencv'
 import getPixels from 'get-pixels'
 
 
-function isBlack(r, g, b, a) {
+function isBlack(r: number, g: number, b: number, a: number): boolean {
   if (r <= 30 && g <= 30 && b <= 30 && a === 255) {
     return true
   }
   return false
 }
 
-export default (buf, type) => new Promise((resolve) => {
-  cv.readImage(buf, (err, mat) => {
+export default (buf: Buffer, type: string): Promise<number> => new Promise((resolve: Function) => {
+  cv.readImage(buf, (err: ?Error, mat: any) => {
     mat.convertGrayscale()
     mat.canny(1, 40)
     mat.houghLinesP()
 
     const matBuf = mat.toBuffer()
-    getPixels(matBuf, type, (er, pixels) => {
+    getPixels(matBuf, type, (er: ?Error, pixels: any) => {
       const totalPixels = pixels.data.length / 4
       let blackPixel = 0
       for (let i = 0; i < pixels.data.length; i += 4) {
