@@ -1,6 +1,6 @@
 {
   "name": "image-optimizer-core",
-  "version": "1.1.2",
+  "version": "1.2.0-0",
   "description": "This Package optimizes your jpeg by adjusting the quality automatically",
   "main": "build/index.js",
   "scripts": {
