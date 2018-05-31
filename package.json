@@ -19,6 +19,7 @@
     "node": ">=0.12"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "file-type": "^8.0.0",
     "get-pixels": "^3.3.0",
     "imagemin": "^5.3.1",
