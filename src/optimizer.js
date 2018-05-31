@@ -39,7 +39,7 @@ function compressToBuffer(
         }))
       } else if (outputType === 'image/webp') {
         plugins.push(imageminWebP({
-          quality: (quality * 100) - 4,
+          quality: (quality * 85) - 4,
         }))
       }
 
