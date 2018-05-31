@@ -57,7 +57,7 @@ function optimizer(input) {
   }
 
   return {
-    toBuffer: () => compressToBuffer(file, mime, mime)
+    toBuffer: (outputType = mime) => compressToBuffer(file, mime, outputType)
       .then(output => new Promise((resolve) => {
         const saved = 1 - (output.length / file.length)
         resolve({ output, saved })
