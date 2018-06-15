@@ -1,7 +1,7 @@
 {
   "name": "image-optimizer-core",
   "version": "1.2.0-0",
-  "description": "This Package optimizes your jpeg by adjusting the quality automatically",
+  "description": "This Package optimizes your jpeg and png by adjusting the quality automatically",
   "main": "build/index.js",
   "scripts": {
     "build": "babel src --out-dir build --ignore spec.js,test.js",
@@ -53,6 +53,8 @@
   "keywords": [
     "image",
     "optimization",
-    "jpeg"
+    "jpeg",
+    "png",
+    "webp"
   ]
 }
