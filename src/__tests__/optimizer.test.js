@@ -1,4 +1,5 @@
 import fs from 'fs'
+import fileType from 'file-type'
 import optimizer from './../'
 import { isBuffer } from './../utiles'
 
@@ -53,8 +54,8 @@ describe('CORE: Optimizer', () => {
 
   it('shouldnt except numbers, bools and strings that arent a jpeg path', async () => {
     expect(() => {
-      optimizer(`${__dirname}/test.png`)
-    }).toThrowError('Inputpath isnt a JP(E)G')
+      optimizer(`${__dirname}/test.gif`)
+    }).toThrowError('Inputpath isnt a JP(E)G or a PNG')
 
     expect(() => {
       optimizer('a great random string to insert and test the project')
@@ -94,6 +95,39 @@ describe('CORE: Optimizer', () => {
             fs.unlinkSync(elem.path)
           }
         })
+      })
+  })
+
+  it('should optimize PNG to JPEG (Buffer => Buffer)', async () => {
+    const file = fs.readFileSync(`${__dirname}/test.png`)
+    await optimizer(file)
+      .toBuffer('image/jpeg')
+      .then(({ output, saved }) => {
+        const { mime } = fileType(output)
+        expect(mime).toBe('image/jpeg')
+        expect(saved).toBeGreaterThan(0.4)
+      })
+  })
+
+  it('should optimize PNG to WebP (Buffer => Buffer)', async () => {
+    const file = fs.readFileSync(`${__dirname}/test.png`)
+    await optimizer(file)
+      .toBuffer('image/webp')
+      .then(({ output, saved }) => {
+        const { mime } = fileType(output)
+        expect(mime).toBe('image/webp')
+        expect(saved).toBeGreaterThan(0.4)
+      })
+  })
+
+  it('should optimize JPEG to WebP (Buffer => Buffer)', async () => {
+    const file = fs.readFileSync(`${__dirname}/test-image.jpg`)
+    await optimizer(file)
+      .toBuffer('image/webp')
+      .then(({ output, saved }) => {
+        const { mime } = fileType(output)
+        expect(mime).toBe('image/webp')
+        expect(saved).toBeGreaterThan(0.4)
       })
   })
 })

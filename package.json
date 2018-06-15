@@ -5,6 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "build": "babel src --out-dir build --ignore spec.js,test.js",
+    "build:dev": "nodemon --watch src --exec yarn build",
     "docker:build": "docker build -t datsteves/image-optimizer-core .",
     "docker:run": "docker run --rm datsteves/image-optimizer-core",
     "lint": "eslint --fix src",
@@ -22,22 +23,27 @@
     "babel-polyfill": "^6.26.0",
     "file-type": "^8.0.0",
     "get-pixels": "^3.3.0",
+    "gm": "^1.23.1",
     "imagemin": "^5.3.1",
     "imagemin-mozjpeg": "^7.0.0",
+    "imagemin-pngquant": "^5.1.0",
     "imagemin-webp": "^4.1.0",
     "opencv": "git+https://git@github.com/peterbraden/node-opencv.git"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-flow": "^6.23.0",
+    "babel-preset-stage-0": "^6.24.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-flowtype": "^2.48.0",
     "eslint-plugin-import": "^2.12.0",
     "flow-bin": "^0.73.0",
-    "jest": "^23.0.1"
+    "jest": "^23.0.1",
+    "nodemon": "^1.17.5"
   },
   "repository": {
     "type": "git",

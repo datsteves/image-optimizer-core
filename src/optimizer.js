@@ -4,47 +4,64 @@ import fileType from 'file-type'
 import imagemin from 'imagemin'
 import mozjpeg from 'imagemin-mozjpeg'
 import imageminWebP from 'imagemin-webp'
+import imageminPngquant from 'imagemin-pngquant'
 import getEdges from './getEdges'
-import { isBuffer } from './utiles'
+import { isBuffer, clampNumber, flatten } from './utiles'
 
 type BufferObjectType = {
   output: Buffer,
   saved: number
 };
 
-type OutputMimeType = 'image/jpeg' | 'image/webp';
-type InputMimeType = 'image/jpeg';
+type OutputMimeType = 'image/jpeg' | 'image/webp' | 'image/png';
+type InputMimeType = 'image/jpeg' | 'image/png';
 
 // for now we only support JPEG's
 const validMimes = [
   'image/jpeg',
+  'image/png',
 ]
 
 function compressToBuffer(
   file: Buffer,
   inputMime: InputMimeType,
-  outputType: string,
+  outputType: OutputMimeType,
 ): Promise<Buffer> {
-  return getEdges(file, inputMime)
+  return getEdges(file)
     .then(async (quality: number): Promise<Buffer> => {
+      let toProcessFile = file
       const plugins = []
-
-      if (outputType === 'image/jpeg') {
+      switch (outputType) {
+      case 'image/jpeg':
         plugins.push(mozjpeg({
-          quality: (quality * 80) - 4,
+          quality: (quality * 84) - 4,
           dcScanOpt: 2,
           smooth: 0,
           quantTable: 1,
           tune: 'ssim',
         }))
-      } else if (outputType === 'image/webp') {
+        if (inputMime === 'image/png') {
+          // we have to flatten PNG's first, otherwise imagemin cant process that file
+          toProcessFile = await flatten(file)
+        }
+        break
+      case 'image/webp':
         plugins.push(imageminWebP({
           quality: (quality * 85) - 4,
         }))
+        break
+      case 'image/png':
+        plugins.push(imageminPngquant({
+          floyd: 1,
+          quality: clampNumber(Math.ceil(quality * 100), 0, 100),
+          speed: 1,
+        }))
+        break
+      default:
+        console.warn('something weird happend')
       }
-
       return imagemin.buffer(
-        file,
+        toProcessFile,
         {
           plugins,
         },
@@ -69,7 +86,7 @@ function optimizer(input: string | Buffer): Object {
   }
   const { mime } = fileType(file)
   if (!validMimes.includes(mime)) {
-    throw new Error('Inputpath isnt a JP(E)G')
+    throw new Error('Inputpath isnt a JP(E)G or a PNG')
   }
 
   return {
