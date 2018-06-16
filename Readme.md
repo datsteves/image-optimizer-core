@@ -45,7 +45,6 @@ optimizer('example.jpg')
         console.log('saved', saved, '%') // 0.72345 ... so it saved you 72.345%
     })
 
-// the following feature will be in the next release (1.3)
 // or if you want, you can even convert your files
 optimizer('example.png')
     .toBuffer('image/webp')
@@ -83,7 +82,7 @@ Type: `Float`
 
 This is the Percentage that this lib safed you in a number between `0-1`
 
-### outputType (v2.13)
+### outputType
 
 Type: `String`
 
