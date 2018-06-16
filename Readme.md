@@ -1,5 +1,6 @@
-[![Build Status](https://travis-ci.com/datsteves/image-optimizer-core.svg?branch=master)](https://travis-ci.com/datsteves/image-optimizer-core)
 # Image Optimizer Core
+
+[![Build Status](https://travis-ci.com/datsteves/image-optimizer-core.svg?branch=master)](https://travis-ci.com/datsteves/image-optimizer-core)
 
 This Package optimizes your images and adjust the quality automatically.
 So no standard 80% Quality on your JPEG's.
@@ -90,7 +91,6 @@ can be `image/jpeg` & `image/png` & `image/webp` .
 
 but be aware, we dont support `JPEG => PNG`
 
-
-## Webpack ?
+## Webpack
 
 if you want to have a webpack loader for it, that uses this package then go to [image-optimizer-webpack-loader](https://github.com/datsteves/image-optimizer-webpack-loader).

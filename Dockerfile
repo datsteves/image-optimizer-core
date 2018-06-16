@@ -1,5 +1,7 @@
 FROM blackgamelp/nodejs-opencv:latest
 
+RUN apt-get install graphicsmagick -y
+
 WORKDIR /usr/src/testing
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
