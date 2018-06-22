@@ -1,5 +1,6 @@
-[![Build Status](https://travis-ci.com/datsteves/image-optimizer-core.svg?branch=master)](https://travis-ci.com/datsteves/image-optimizer-core)
 # Image Optimizer Core
+
+[![Build Status](https://travis-ci.com/datsteves/image-optimizer-core.svg?branch=master)](https://travis-ci.com/datsteves/image-optimizer-core)
 
 This Package optimizes your images and adjust the quality automatically.
 So no standard 80% Quality on your JPEG's.
@@ -38,9 +39,16 @@ optimizer(buffer)
         // ...
     })
 
-//You even get the saved kb back as a percentage
+// You even get the saved kb back as a percentage
 optimizer('example.jpg')
     .toBuffer()
+    .then((buffer, saved) => {
+        console.log('saved', saved, '%') // 0.72345 ... so it saved you 72.345%
+    })
+
+// or if you want, you can even convert your files
+optimizer('example.png')
+    .toBuffer('image/webp')
     .then((buffer, saved) => {
         console.log('saved', saved, '%') // 0.72345 ... so it saved you 72.345%
     })
@@ -57,11 +65,11 @@ Returns `toBuffer` and `toFile`
 
 Type: `Buffer` or `String`
 
-### toBuffer()
+### toBuffer(outputType)
 
 Returns `Promise<Buffer>, <saved>`
 
-### toFile(ouput)
+### toFile(ouputPath, outputType)
 
 Returns `Promise<saved>`
 
@@ -74,3 +82,15 @@ Type: `String`
 Type: `Float`
 
 This is the Percentage that this lib safed you in a number between `0-1`
+
+### outputType
+
+Type: `String`
+
+can be `image/jpeg` & `image/png` & `image/webp` .
+
+but be aware, we dont support `JPEG => PNG`
+
+## Webpack
+
+if you want to have a webpack loader for it, that uses this package then go to [image-optimizer-webpack-loader](https://github.com/datsteves/image-optimizer-webpack-loader).
