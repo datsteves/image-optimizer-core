@@ -1,6 +1,6 @@
 # Image Optimizer Core
 
-[![Build Status](https://travis-ci.com/datsteves/image-optimizer-core.svg?branch=master)](https://travis-ci.com/datsteves/image-optimizer-core)
+[![Build Status Master](https://travis-ci.com/datsteves/image-optimizer-core.svg?branch=master)](https://travis-ci.com/datsteves/image-optimizer-core)
 
 This Package optimizes your images and adjust the quality automatically.
 So no standard 80% Quality on your JPEG's.
@@ -9,6 +9,7 @@ So no standard 80% Quality on your JPEG's.
 ## Install
 
 please have a look at the instruction of [node-opencv](https://github.com/peterbraden/node-opencv) to install opencv on your machine.
+Or have have a look on the Dockerfile from this repo (used for testing) if you want to use it in Docker.
 
 ```bash
 $ npm install image-optimizer-core
@@ -73,7 +74,7 @@ Returns `Promise<Buffer>, <saved>`
 
 Returns `Promise<saved>`
 
-#### output
+#### outputPath
 
 Type: `String`
 
@@ -83,7 +84,7 @@ Type: `Float`
 
 This is the Percentage that this lib safed you in a number between `0-1`
 
-### outputType
+#### outputType
 
 Type: `String`
 
