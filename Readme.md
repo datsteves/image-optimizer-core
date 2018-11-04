@@ -1,6 +1,7 @@
 # Image Optimizer Core
 
 [![Build Status](https://travis-ci.com/datsteves/image-optimizer-core.svg?branch=master)](https://travis-ci.com/datsteves/image-optimizer-core)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdatsteves%2Fimage-optimizer-core.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdatsteves%2Fimage-optimizer-core?ref=badge_shield)
 
 This Package optimizes your images and adjust the quality automatically.
 So no standard 80% Quality on your JPEG's.
@@ -94,3 +95,6 @@ but be aware, we dont support `JPEG => PNG`
 ## Webpack
 
 if you want to have a webpack loader for it, that uses this package then go to [image-optimizer-webpack-loader](https://github.com/datsteves/image-optimizer-webpack-loader).
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdatsteves%2Fimage-optimizer-core.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdatsteves%2Fimage-optimizer-core?ref=badge_large)
